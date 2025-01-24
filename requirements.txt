@@ -1,6 +1,8 @@
-tensorflow==2.12.0
+tensorflow==2.18.0
 numpy==1.23.5
 matplotlib==3.7.1
 image==1.5.33
 Pillow==11.1.0
-Flask==2.2.3
+Flask==2.1.1  # Flask 2.1.1 is compatible with older Werkzeug versions
+Werkzeug==2.1.2  # Specific version of Werkzeug that works with Flask 2.1.1
+
