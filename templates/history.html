@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='Bgimage/bgimage.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-top: 50px;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.6); 
+            padding: 30px;
+            border-radius: 10px;
+            width: 50%;
+            margin: 50px auto;
+        }
+
+        .btn-purple {
+            background-color: #6f42c1;
+            color: white;
+        }
+
+        .btn-purple:hover {
+            background-color: #5a32a0;
+        }
+
+        .list-group-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            color: black;
+            margin: 10px 0;
+        }
+
+        img {
+            max-width: 80px;
+            height: auto;
+            margin-right: 15px;
+        }
+
+        .prediction {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        /* Center the Go Back button */
+        .go-back-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction History</h1>
+
+        {% if history %}
+        <ul class="list-group">
+            {% for entry in history %}
+            <li class="list-group-item d-flex align-items-center">
+                <img src="{{ url_for('static', filename='uploads/' + entry['image']) }}" alt="Uploaded Image">
+                <span>Condition: <span class="prediction">{{ entry['result'] }}</span></span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>No history available.</p>
+        {% endif %}
+
+        <div class="go-back-btn-container">
+            <a href="/" class="btn btn-purple">Go Back</a>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

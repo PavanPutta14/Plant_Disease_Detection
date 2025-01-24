@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Disease Detection</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='Bgimage/bgimage.jpg') }}');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh; /* Ensures the body takes full height */
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-top: 50px;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            padding: 30px;
+            border-radius: 10px;
+            width: 50%;
+            margin: 50px auto;
+            text-align: center;
+            max-width: 800px; /* Optional: Maximum width */
+        }
+
+        .btn {
+            font-size: 1.1em;
+            padding: 10px 30px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .btn-blue {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-blue:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-purple {
+            background-color: #6f42c1;
+            color: white;
+        }
+
+        .btn-purple:hover {
+            background-color: #5a32a0;
+        }
+
+        .img-uploaded {
+            margin-top: 20px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .prediction-result {
+            margin-top: 30px;
+            font-size: 1.5em;
+            color: #ffbf00;
+        }
+
+        .error-message {
+            margin-top: 20px;
+            color: red;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 80%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .btn {
+                font-size: 1em;
+                padding: 8px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .btn {
+                font-size: 0.9em;
+                padding: 6px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Plant Disease Detection</h1>
+
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Upload a plant image:</label>
+                <input type="file" name="file" id="file" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-blue">Predict</button>
+        </form>
+
+        {% if result %}
+            <div class="error-message">
+                <p>{{ result }}</p>
+            </div>
+        {% endif %}
+        {% if image_url %}
+            <div>
+                <img src="{{ image_url }}" alt="Uploaded Image" class="img-uploaded">
+            </div>
+            
+            {% if result != "Please upload a valid leaf image." %}
+                <div class="prediction-result">
+                    <p>The plant condition is: <strong>{{ result }}</strong></p>
+                </div>
+            {% endif %}
+            <a href="/history" class="btn btn-purple">View History</a>
+        {% endif %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
